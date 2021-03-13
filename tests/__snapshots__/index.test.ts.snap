@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test should 1`] = `
+Object {
+  "default": Array [
+    Object {
+      "default": "1js",
+    },
+    Object {
+      "default": "2ts",
+    },
+    Object {
+      "default": "3ts",
+      "test": "test3ts",
+    },
+    Object {
+      "default": Object {},
+    },
+    Object {
+      "noDefaultExport": "subfolder",
+    },
+  ],
+  "filenames": Array [
+    "./migrations/01.js",
+    "./migrations/02.ts",
+    "./migrations/03.ts",
+    "./migrations/10.js",
+    "./migrations/subfolder/sub.js",
+  ],
+}
+`;
+
+exports[`test should 2`] = `
+Object {
+  "default": Array [
+    Object {
+      "default": "Server",
+    },
+    Object {
+      "default": "User",
+    },
+  ],
+  "filenames": Array [
+    "./entities/server.ts",
+    "./entities/user.ts",
+  ],
+}
+`;
