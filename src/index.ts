@@ -1,3 +1,4 @@
+import path from 'path';
 import fastGlob from 'fast-glob';
 import { Plugin } from 'esbuild';
 
@@ -10,9 +11,12 @@ const EsbuildPluginImportGlob = (): Plugin => ({
       }
 
       return {
-        path: args.path,
+        // make sure that imports are properly scoped to directories that are requested from
+        // otherwise results get overwritten
+        path: path.resolve(args.resolveDir, args.path),
         namespace: 'import-glob',
         pluginData: {
+          path: args.path,
           resolveDir: args.resolveDir,
         },
       };
@@ -20,12 +24,12 @@ const EsbuildPluginImportGlob = (): Plugin => ({
 
     build.onLoad({ filter: /.*/, namespace: 'import-glob' }, async (args) => {
       const files = (
-        await fastGlob(args.path, {
+        await fastGlob(args.pluginData.path, {
           cwd: args.pluginData.resolveDir,
         })
       ).sort();
 
-      let importerCode = `
+      const importerCode = `
         ${files
           .map((module, index) => `import * as module${index} from '${module}'`)
           .join(';')}
@@ -36,7 +40,7 @@ const EsbuildPluginImportGlob = (): Plugin => ({
 
         export default modules;
         export const filenames = [${files
-          .map((module, index) => `'${module}'`)
+          .map((module) => `'${module}'`)
           .join(',')}]
       `;
 
