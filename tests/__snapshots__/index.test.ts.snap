@@ -1,5 +1,43 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`test keeps proper scope of imports 1`] = `
+Object {
+  "default": Object {
+    "default": Array [
+      Object {
+        "default": "a",
+      },
+      Object {
+        "default": "b",
+      },
+    ],
+    "filenames": Array [
+      "./cases/a.js",
+      "./cases/b.js",
+    ],
+  },
+}
+`;
+
+exports[`test keeps proper scope of imports 2`] = `
+Object {
+  "default": Object {
+    "default": Array [
+      Object {
+        "default": "c",
+      },
+      Object {
+        "default": "d",
+      },
+    ],
+    "filenames": Array [
+      "./cases/c.js",
+      "./cases/d.js",
+    ],
+  },
+}
+`;
+
 exports[`test should 1`] = `
 Object {
   "default": Array [
