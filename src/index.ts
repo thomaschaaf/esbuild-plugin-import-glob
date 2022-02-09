@@ -8,7 +8,7 @@ const EsbuildPluginImportGlob = (): Plugin => ({
       if (args.resolveDir === '') {
         return; // Ignore unresolvable paths
       }
-      
+
       return {
         // 'path' is the value that esbuild uses for optimizations, to not call 'onLoad' for the same file again.
         // 'args.path' contains only the glob string. If the same glob string is used from different directories,
