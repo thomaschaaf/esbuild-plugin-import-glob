@@ -1,7 +1,11 @@
 import fastGlob from 'fast-glob';
 import { Plugin } from 'esbuild';
 
-const EsbuildPluginImportGlob = (): Plugin => ({
+interface Config {
+  ignorePaths: string[];
+}
+
+const EsbuildPluginImportGlob = (config?: Config): Plugin => ({
   name: 'require-context',
   setup: (build) => {
     build.onResolve({ filter: /\*/ }, async (args) => {
@@ -22,6 +26,7 @@ const EsbuildPluginImportGlob = (): Plugin => ({
       const files = (
         await fastGlob(args.path, {
           cwd: args.pluginData.resolveDir,
+          ignore: config?.ignorePaths ?? [],
         })
       ).sort();
 
